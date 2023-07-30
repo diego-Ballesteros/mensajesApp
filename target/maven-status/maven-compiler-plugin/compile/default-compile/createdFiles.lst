@@ -1,0 +1,5 @@
+com\platzi\mensajes_app\Conexion.class
+com\platzi\mensajes_app\MensajeDao.class
+com\platzi\mensajes_app\Inicio.class
+com\platzi\mensajes_app\Mensaje.class
+com\platzi\mensajes_app\MensajeService.class
