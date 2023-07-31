@@ -5,6 +5,7 @@
 package com.platzi.mensajes_app;
 
 import com.mysql.cj.xdevapi.PreparableStatement;
+import com.mysql.cj.xdevapi.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -37,9 +38,18 @@ public class MensajeDao {
         }
     }
     public static void leerMensajeDB(){
-        
+         Conexion dbConect = new Conexion();
+         
+         PreparedStatement ps = null;
+         Result rs = null;
+         
+         try(Connection conexion = dbConect.get_connection()){
+            String query ="SELECT * FROM mensajes";
+            ps=conexion.prepareStatement(query);
+        } catch (Exception e) {
+        }
     }
-    public static void vorrarMensaje(int idMensaje){
+    public static void borrarMensajeDB(int idMensaje){
         
     }
     public static void actualizarMensajeBD(Mensaje mensaje){
