@@ -8,7 +8,9 @@ import com.mysql.cj.xdevapi.PreparableStatement;
 import com.mysql.cj.xdevapi.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -37,17 +39,33 @@ public class MensajeDao {
             System.out.println(e);
         }
     }
-    public static void leerMensajeDB(){
+    public static ArrayList<Mensaje> leerMensajeDB(){
          Conexion dbConect = new Conexion();
+         ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>();
          
          PreparedStatement ps = null;
-         Result rs = null;
+         ResultSet rs = null;
          
          try(Connection conexion = dbConect.get_connection()){
             String query ="SELECT * FROM mensajes";
+            
             ps=conexion.prepareStatement(query);
+            rs = ps.executeQuery();
+            
+             while (rs.next()) {
+                 Mensaje mensaje = new Mensaje();
+                 mensaje.setIdMensaje(rs.getInt("id_mensaje"));
+                 mensaje.setMensaje(rs.getString("mensaje"));
+                 mensaje.setAutorMensaje(rs.getString("autor_mensaje"));
+                 mensaje.setFechaMensaje(rs.getString("fecha_mensaje"));
+                 mensajes.add(mensaje);
+             }
+            
         } catch (Exception e) {
+             System.out.println("No se pudieron recuperar los datos");
+             System.out.println(e);
         }
+         return mensajes;
     }
     public static void borrarMensajeDB(int idMensaje){
         
