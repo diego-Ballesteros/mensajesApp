@@ -41,7 +41,7 @@ public class MensajeDao {
     }
     public static ArrayList<Mensaje> leerMensajeDB(){
          Conexion dbConect = new Conexion();
-         ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>();
+         ArrayList<Mensaje> mensajes = new ArrayList<>();
          
          PreparedStatement ps = null;
          ResultSet rs = null;
@@ -68,10 +68,50 @@ public class MensajeDao {
          return mensajes;
     }
     public static void borrarMensajeDB(int idMensaje){
+        Conexion dbConect = new Conexion();
         
+         try(Connection conexion = dbConect.get_connection()){
+            PreparedStatement ps = null;
+            try{
+                String query = "DELETE FROM mensajes "
+                        + "WHERE id_mensaje = ?";
+                ps =conexion.prepareStatement(query);
+                ps.setInt(1,idMensaje);
+                ps.executeUpdate();
+                System.out.println("Mensaje eliminado exitosamente");
+            
+            } catch (Exception e) {
+                 System.out.println("No se pudo borrar el datos");
+                 System.out.println(e);
+            }
+            
+        } catch (Exception e) {
+            
+             System.out.println(e);
+        }
     }
+    
     public static void actualizarMensajeBD(Mensaje mensaje){
+        Conexion dbConect = new Conexion();
         
+         try (Connection conexion = dbConect.get_connection()){
+            PreparedStatement ps = null;
+             try {
+                String query = "UPDATE mensajes SET mensaje = ? WHERE id_mensaje = ?";
+                ps = conexion.prepareStatement(query);
+                ps.setString(1, mensaje.getMensaje());
+                ps.setInt(2, mensaje.getIdMensaje());
+                ps.executeUpdate();
+                System.out.println("actualizado con exito");
+                
+             } catch (SQLException ex) {
+                 System.out.println("No se pudo hacer la actualizacion ");
+                 System.out.println(ex);
+             }
+            
+        } catch (SQLException e) {
+             System.out.println(e);
+        }
     }
     
 }

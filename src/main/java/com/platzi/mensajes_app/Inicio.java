@@ -16,12 +16,12 @@ public class Inicio {
         
         Scanner sc = new Scanner(System.in);
         int op =0;
-        String men = "-------------------- "
+        String men = "-------------------- \n"
                 + " Aplicacion mensaje "
                 + "\n1. Crear mensaje"
                 + "\n2. Listar mensajes"
-                + "\n3. Editar mensaje"
-                + "\n4. Eliminar mensaje"
+                + "\n3. Eliminar mensaje"
+                + "\n4. Editar mensaje"
                 + "\n5. Salir"
                 + "----------> ";        
         fin: do {            
